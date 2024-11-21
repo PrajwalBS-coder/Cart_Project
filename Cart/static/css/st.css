@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background-color: aqua; */
+}
+header {
+    background: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.hero {
+    background: url('/static/images/jhon.jpg') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    filter: contrast(80%);
+}
+.hero h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #be0f09;
+}
+.hero p {
+    font-size: 1.2rem;
+}
+.hero a {
+    display: inline-block;
+    background: white;
+    color: #4CAF50;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.features, .stats, .testimonials, .product-highlights, .why-choose-us {
+    padding: 40px 20px;
+    text-align: center;
+}
+.features h2, .stats h2, .testimonials h2, .product-highlights h2, .why-choose-us h2 {
+    margin-bottom: 20px;
+}
+.features div, .stats div, .testimonials div, .product-highlights div, .why-choose-us div {
+    margin: 10px 0;
+}
+footer {
+    background: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+footer a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+.product-highlights {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%; /* Ensure the image spans the width of the container */
+    height: 200px; /* Set a fixed height for all images */
+    object-fit: cover; /* Ensures the image fits within the dimensions without distortion */
+    border-bottom: 1px solid #ddd;
+}
+
+
+.product-card h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.product-card p {
+    font-size: 1rem;
+    color: #4CAF50;
+}
+
+.product-card button {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.product-card button:hover {
+    background: #45a049;
+}
