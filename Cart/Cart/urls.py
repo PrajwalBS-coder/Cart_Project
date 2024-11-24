@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import *
+from one.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Checking/',TemplateView.as_view(template_name='AllInONe.html'),name='Check'),
-    path('Home/',TemplateView.as_view(template_name='HomePage.html'),name='Home'),
+    path('home/',TemplateView.as_view(template_name='HomePage.html'),name='Home'),
+    path('registration/',AddUser,name='registration'),
 ]
