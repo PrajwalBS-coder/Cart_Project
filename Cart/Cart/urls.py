@@ -24,4 +24,5 @@ urlpatterns = [
     path('Checking/',TemplateView.as_view(template_name='AllInONe.html'),name='Check'),
     path('home/',TemplateView.as_view(template_name='HomePage.html'),name='Home'),
     path('registration/',AddUser,name='registration'),
+    path('userlogin/',UserLogin,name='userLogin')
 ]
