@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,21 +11,47 @@
     {% block title %}
     <title>Cart Project - Homepage</title>
     <link rel="stylesheet" href="{% static 'css/st.css' %}">
-  
+
     {% endblock %}
-    
+
 </head>
+
 <body>
     {% block empty %}
 
 
     <header>
-        <h1>Welcome to Your Smart Cart</h1>
+        {% if name %}
+        <h1>Welcome {{name}} to Your Smart Cart</h1>
+        {% else %}
+        <h1>Welcome {{name}} to Your Smart Cart</h1>
+        {% endif %}
     </header>
     <section class="hero">
-        <h1>Your Shopping Companion Made Smarter!</h1>
-        <p>Find everything you need, all in one place.</p>
-        <a href="#products">Shop Now</a>
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://imgs.search.brave.com/oV8VHXNlRfnXMH4usN5U_gItp3juSU1K-cNupfofbxQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA1LzQ5LzI1LzE0/LzM2MF9GXzU0OTI1/MTQ2N190OGxnTG9O/bG0wUWlYSHhKVjA5/cjRhbGtZRThCaG5x/MC5qcGc"
+                        class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images.alphacoders.com/131/thumbbig-1316457.webp" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://images3.alphacoders.com/134/thumbbig-1348168.webp" class="d-block w-100"
+                        alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
     </section>
     <section class="product-highlights">
         <h2>Trending Products</h2>
@@ -55,7 +82,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="features">
         <h2>Features</h2>
         <div>✔ Easy Navigation</div>
@@ -88,8 +115,10 @@
         <div>✅ Hassle-free returns.</div>
     </section>
     <footer>
-        <p>&copy; 2024 Cart Project. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Us</a></p>
+        <p>&copy; 2024 Cart Project. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of
+                Service</a> | <a href="#">Contact Us</a></p>
     </footer>
     {% endblock%}
 </body>
+
 </html>

@@ -22,7 +22,9 @@ from one.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Checking/',TemplateView.as_view(template_name='AllInONe.html'),name='Check'),
-    path('home/',TemplateView.as_view(template_name='HomePage.html'),name='Home'),
+    # path('home/',TemplateView.as_view(template_name='HomePage.html'),name='Home'),
+    path('home/',home,name='Home'),
     path('registration/',AddUser,name='registration'),
-    path('userlogin/',UserLogin,name='userLogin')
+    path('userlogin/',UserLogin,name='userLogin'),
+    path('userLogout/',UserLogout,name='userLogout'),
 ]
