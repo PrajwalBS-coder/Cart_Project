@@ -106,3 +106,8 @@ footer a {
 .product-card button:hover {
     background: #45a049;
 }
+.carousel-inner img {
+    width: 300px; /* Maintain responsiveness */
+    height: 100px; /* Set a fixed height */
+    object-fit: cover; /* Crop the image to fit the dimensions */
+}

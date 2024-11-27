@@ -20,13 +20,6 @@ def home(request):
         return render(request,'HomePage.html',{'name':request.session.get('username')})
     return render(request,'HomePage.html')
 
-
-
-
-
-
-
-
 def UserLogin(request):
     if request.method=='POST':
         na=request.POST['username']
@@ -46,9 +39,12 @@ def UserLogin(request):
         if AuthObj:
             # login(request,AuthObj)
             request.session['username']=request.POST['username']
+            request.session['is_logged_in'] = True
             return HttpResponseRedirect(reverse('Home'))
     return render(request,'UserLogin.html')
 
 def UserLogout(request):
+    request.session['is_logged_in'] = False
     request.session.clear()
     return HttpResponseRedirect(reverse('Home'))
+    
