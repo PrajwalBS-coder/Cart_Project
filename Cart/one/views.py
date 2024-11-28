@@ -48,7 +48,7 @@ def UserLogout(request):
     request.session.clear()
     return HttpResponseRedirect(reverse('Home'))
 
-def UserProfile(request):
+def Edit(request):
     uname=request.session.get('username')
     UserObj=User.objects.filter(name=uname)
     # if request.method=='POST':
@@ -84,5 +84,11 @@ def UserProfile(request):
             print("User not found")
 
 
+    return render(request,'Edit.html',{'user':UserObj[0]})
+
+
+def UserProfile(request):
+    uname=request.session.get('username')
+    UserObj=User.objects.filter(name=uname)
     return render(request,'Profile.html',{'user':UserObj[0]})
     

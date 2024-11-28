@@ -41,16 +41,19 @@
             <form  method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-3">
+                    <label for="profileImage" class="form-label">Upload Profile Picture</label>
+                    <input class="form-control" type="file" id="profileImage" name="profileImage" accept="image/*" required>
+                </div>
+                <div class="mb-3">
                     <label for="name" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{user.name}}" readonly>
+                    <input type="text" class="form-control" id="name" name="name" value="{{user.name}}" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" readonly>
+                    <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" required>
                 </div>
-               
+                <button type="submit" class="btn btn-success">Save Changes</button>
             </form>
-            <a href="{% url 'edit' %}" class="btn btn-success">Edit Changes</a>
         </div>
     </div>
 
