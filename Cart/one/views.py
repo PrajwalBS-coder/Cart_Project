@@ -47,4 +47,42 @@ def UserLogout(request):
     request.session['is_logged_in'] = False
     request.session.clear()
     return HttpResponseRedirect(reverse('Home'))
+
+def UserProfile(request):
+    uname=request.session.get('username')
+    UserObj=User.objects.filter(name=uname)
+    # if request.method=='POST':
+    #     newname=request.POST['name']
+    #     newemail=request.POST['email']
+    #     newimg=request.FILES['profileImage']
+    #     UpdateUser=User.objects.filter(name=uname)
+    #     # User.objects.update(name=newname,email=newemail,profile_image=newimg)
+    #     UpdateUser[0].name=newname
+    #     UpdateUser[0].email=newemail
+    #     UpdateUser[0].profile_img=newimg
+    #     UpdateUser[0].save()
+    UpdateUser=User.objects.none()
+    if request.method == 'POST':
+        newname = request.POST.get('name')
+        newemail = request.POST.get('email')
+        newimg = request.FILES.get('profileImage')
+        UpdateUser = User.objects.filter(name=uname).first()
+        print(UpdateUser,newimg)
+
+        if UpdateUser:
+            if newname:
+                UpdateUser.name = newname
+            if newemail:
+                UpdateUser.email = newemail
+            if newimg:
+                UpdateUser.profile_image = newimg
+            UpdateUser.save()
+            return render(request,'Profile.html',{'user':User.objects.filter(name=newname)[0]})
+
+        else:
+            # Handle the case where the user isn't found
+            print("User not found")
+
+
+    return render(request,'Profile.html',{'user':UserObj[0]})
     

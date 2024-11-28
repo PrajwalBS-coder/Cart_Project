@@ -43,6 +43,8 @@
             <ul class="dropdown-menu">
               {% if request.session.is_logged_in %}
               <li><a class="dropdown-item" href="{% url 'userLogout' %}">Logout</a></li>
+              <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+
               <li>
                 <hr class="dropdown-divider">
               </li>

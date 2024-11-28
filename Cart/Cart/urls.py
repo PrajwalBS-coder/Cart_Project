@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import *
 from one.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +29,5 @@ urlpatterns = [
     path('registration/',AddUser,name='registration'),
     path('userlogin/',UserLogin,name='userLogin'),
     path('userLogout/',UserLogout,name='userLogout'),
-]
+    path('UserProfile/',UserProfile,name='profile')
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
