@@ -111,9 +111,12 @@ def ResetPassword(request):
     name=request.session['username']
     if request.method=='POST':
         UserObj=User.objects.filter(name=name).first()
-        UserObj.password=request.POST['password']
-        UserObj.save()
-        UserLogout(request)
+        if (request.POST['password']==request.POST['confirmpassword']):
+            UserObj.password=request.POST['password']
+            UserObj.save()
+            UserLogout(request)
+            return HttpResponseRedirect(reverse('Home'))
+
     else:
         return render(request,'ResetPassword.html')
 
