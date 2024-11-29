@@ -92,3 +92,28 @@ def UserProfile(request):
     UserObj=User.objects.filter(name=uname)
     return render(request,'Profile.html',{'user':UserObj[0]})
     
+
+def ForgotPassword(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        UserObj=User.objects.filter(name=username).first()
+        print(UserObj)
+        if UserObj:
+            UserObj.password=request.POST['password']
+            UserObj.save()
+            return HttpResponseRedirect(reverse('userLogin'))
+        else:
+            return render(request,'ForgotPassword.html')
+    return render(request,'ForgotPassword.html')
+    
+
+def ResetPassword(request):
+    name=request.session['username']
+    if request.method=='POST':
+        UserObj=User.objects.filter(name=name).first()
+        UserObj.password=request.POST['password']
+        UserObj.save()
+        UserLogout(request)
+    else:
+        return render(request,'ResetPassword.html')
+
