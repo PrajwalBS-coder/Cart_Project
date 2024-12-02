@@ -33,4 +33,5 @@ urlpatterns = [
     path('UserProfileEdit/',Edit,name='edit'),
     path('forgotpassword/',ForgotPassword,name='forgotpassword'),
     path('resetpassword/',ResetPassword,name='resetpassword'),
+    path('addtocart/',AddToCart,name='addtocart'),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

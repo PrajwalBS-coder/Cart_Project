@@ -120,3 +120,16 @@ def ResetPassword(request):
     else:
         return render(request,'ResetPassword.html')
 
+
+def AddToCart(request):
+    if request.session.get('username'):
+        if request.method=="POST":
+            username=request.session.get('username')
+            print("Added To Cart By ",username,request.POST['productname'])
+            obj= Cart.objects.get_or_create(product_name=request.POST.get('productname'),customer_name=username,price=request.POST.get('price'),product_count=1)
+            if obj:
+                return HttpResponseRedirect(reverse('Home'))
+            else:
+                return HttpResponse("error")
+        # return HttpResponseRedirect(reverse('profile'))
+    return HttpResponseRedirect(reverse('userLogin'))
