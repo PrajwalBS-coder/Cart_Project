@@ -4,6 +4,7 @@ from .models import *
 from django.urls import reverse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+import re
 # Create your views here.
 def AddUser(request):
     if request.method=='POST':
@@ -17,7 +18,11 @@ def AddUser(request):
 
 def home(request):
     if request.session.get('username'):
-        return render(request,'HomePage.html',{'name':request.session.get('username')})
+        a=Cart.objects.filter(customer_name=request.session.get('username'))
+        if a:
+            return render(request,'HomePage.html',{'name':request.session.get('username'),'cart_count':len(a)})
+        else:
+            return render(request,'HomePage.html',{'name':request.session.get('username')})
     return render(request,'HomePage.html')
 
 def UserLogin(request):
@@ -40,6 +45,7 @@ def UserLogin(request):
             # login(request,AuthObj)
             request.session['username']=request.POST['username']
             request.session['is_logged_in'] = True
+           
             return HttpResponseRedirect(reverse('Home'))
     return render(request,'UserLogin.html')
 
@@ -125,11 +131,16 @@ def AddToCart(request):
     if request.session.get('username'):
         if request.method=="POST":
             username=request.session.get('username')
-            print("Added To Cart By ",username,request.POST['productname'])
-            obj= Cart.objects.get_or_create(product_name=request.POST.get('productname'),customer_name=username,price=request.POST.get('price'),product_count=1)
+            print("Added To Cart By ",username,request.POST['name'])
+            match = re.search(r"\d+(\.\d+)?", request.POST.get('price'))
+            obj= Cart.objects.get_or_create(product_name=request.POST.get('name'),customer_name=username,price=float(match.group()),product_count=1)
             if obj:
                 return HttpResponseRedirect(reverse('Home'))
             else:
                 return HttpResponse("error")
         # return HttpResponseRedirect(reverse('profile'))
     return HttpResponseRedirect(reverse('userLogin'))
+
+
+def UserCart(request):
+    return HttpResponse("THIs is Cart!! Work In Progress!!!")

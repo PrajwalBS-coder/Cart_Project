@@ -60,10 +60,20 @@
               {% endif %}
 
             </ul>
+
+            <!-- {% if request.session.is_logged_in %}
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="bi bi-cart-check"><sup>222</sup></i></a>
+              <a class="nav-link" href="#"><i class="bi bi-cart-check"><sup>{{cart_count}}</sup></i></a>
             </li>
+            {% endif %} -->
             
+            {% block cart %}
+           
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="bi bi-cart-check"><sup>{{cart_count}}</sup></i></a>
+            </li>
+          
+            {% endblock %}
           </li>
         </ul>
         <form class="d-flex" role="search">

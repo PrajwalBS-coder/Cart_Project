@@ -14,4 +14,5 @@ class Cart(models.Model):
     customer_name=models.CharField(max_length=100)
     price=models.IntegerField()
     product_count=models.IntegerField()
-    
+    def __str__(self):
+        return (self.product_name)
