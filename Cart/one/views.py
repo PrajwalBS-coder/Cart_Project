@@ -143,4 +143,5 @@ def AddToCart(request):
 
 
 def UserCart(request):
-    return HttpResponse("THIs is Cart!! Work In Progress!!!")
+    Products=Cart.objects.filter(customer_name=request.session.get('username'))
+    return render(request,'Cart.html',{'Products':Products})

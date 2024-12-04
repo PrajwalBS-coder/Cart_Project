@@ -35,4 +35,5 @@ urlpatterns = [
     path('resetpassword/',ResetPassword,name='resetpassword'),
     path('addtocart/',AddToCart,name='addtocart'),
     path('cart/',UserCart,name='cart'),
+    
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

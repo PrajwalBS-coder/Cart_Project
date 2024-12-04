@@ -1,0 +1,144 @@
+{% extends 'AllInOne.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block title %}
+    <title>Cart Project - Homepage</title>
+    <link rel="stylesheet" href="{% static 'css/st.css' %}">
+    <style>
+        #carouselExample .carousel-inner .carousel-item img {
+            width: 100%;
+            height: 500px;
+            /* Set uniform height */
+            object-fit: cover;
+            /* Crop to fit container */
+        }
+    </style>
+    {% endblock %}
+</head>
+
+<body>
+    {% block cart %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'cart' %}"><i class="bi bi-cart-check"><sup>{{cart_count}}</sup></i></a>
+    </li>
+    {% endblock %}
+    {% block empty %}
+
+    <header>
+        {% if name %}
+        <h1>Your Cart</h1>
+        {% else %}
+        <h1>Welcome to Smart Cart</h1>
+        {% endif %}
+    </header>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Shopping Cart</h2>
+        <table class="table cart-table">
+            <thead class="table-light">
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="cartItems">
+                {% for item in Products %}
+                <tr id="row{{ item.id }}">
+                    <td>
+                        <img src="{{ item.image }}" alt="Product Image" class="img-thumbnail">
+                        <span class="ms-3">{{ item.name }}</span>
+                    </td>
+                    <td>${{ item.price }}</td>
+                    <td>
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary quantity-btn" data-id="{{ item.id }}"
+                                onclick="updateQuantity(this, -1)">-</button>
+                            <input type="text" id="quantity{{ item.id }}" class="form-control text-center"
+                                value="{{ item.product_count }}" readonly>
+                            <button class="btn btn-outline-secondary quantity-btn" data-id="{{ item.id }}"
+                                onclick="updateQuantity(this, 1)">+</button>
+                        </div>
+                    </td>
+                    <td id="total{{ item.id }}" data-price="{{ item.price }}">
+                        ${{ item.price|floatformat:2|add:item.product_count|floatformat:2 }}
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" data-id="{{ item.id }}" onclick="removeFromCart(this)">Remove</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between">
+            <h4 id="grandTotal">Grand Total: ${{ grand_total }}</h4>
+            <button class="btn btn-success">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        async function updateQuantity(button, change) {
+            const productId = button.getAttribute('data-id');
+            const quantityElement = document.getElementById(`quantity${productId}`);
+            const totalElement = document.getElementById(`total${productId}`);
+
+            if (!quantityElement || !totalElement) {
+                console.error('Invalid element references!');
+                return;
+            }
+
+            const newQuantity = parseInt(quantityElement.value) + change;
+            if (newQuantity < 1) return; // Prevent negative or zero quantities
+
+            
+
+                quantityElement.value = newQuantity;
+                const price = parseFloat(totalElement.getAttribute('data-price'));
+                totalElement.textContent = `$${(price * newQuantity).toFixed(2)}`;
+                updateGrandTotal();
+           
+        }
+
+        function updateGrandTotal() {
+            let grandTotal = 0;
+            document.querySelectorAll('#cartItems tr').forEach(row => {
+                const totalCell = row.querySelector('[id^="total"]');
+                if (totalCell) {
+                    const total = parseFloat(totalCell.textContent.replace('$', '')) || 0;
+                    grandTotal += total;
+                }
+            });
+            document.getElementById('grandTotal').textContent = `Grand Total: $${grandTotal.toFixed(2)}`;
+        }
+
+        async function removeFromCart(button) {
+            const productId = button.getAttribute('data-id');
+
+            const response = await fetch('/remove_from_cart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `product_id=${productId}`
+            });
+
+            if (response.ok) {
+                const row = document.getElementById(`row${productId}`);
+                if (row) row.remove();
+                updateGrandTotal();
+            } else {
+                console.error('Failed to remove item from the cart.');
+            }
+        }
+    </script>
+    {% endblock %}
+</body>
+
+</html>
