@@ -45,8 +45,9 @@ def UserLogin(request):
             # login(request,AuthObj)
             request.session['username']=request.POST['username']
             request.session['is_logged_in'] = True
-           
             return HttpResponseRedirect(reverse('Home'))
+        else:
+            return HttpResponse("Wrong")
     return render(request,'UserLogin.html')
 
 def UserLogout(request):
